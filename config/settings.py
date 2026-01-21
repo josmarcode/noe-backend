@@ -125,3 +125,10 @@ load_dotenv()
 
 SECRET_KEY  = os.getenv('SECRET_KEY')
 DEBUG       = os.getenv('DEBUG') == 'True'
+
+INSTALLED_APPS += [
+    'accounts',
+    'vehicles',
+    'tracking',
+    'logs'
+]
