@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,8 +129,12 @@ SECRET_KEY  = os.getenv('SECRET_KEY')
 DEBUG       = os.getenv('DEBUG') == 'True'
 
 INSTALLED_APPS += [
-    'accounts',
     'vehicles',
-    'tracking',
-    'logs'
+    'trackers',
+    'registers',
+    'notifications',
+    'access',
+    'errors'
 ]
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
