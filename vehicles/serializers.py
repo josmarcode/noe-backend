@@ -29,10 +29,9 @@ class VehicleSerializer(serializers.ModelSerializer):
     
     def get_trackers_count(self, obj: Vehicle) -> int:
         """
-        Get the count of trackers associated with the vehicle.
+        Get the count of active trackers associated with the vehicle.
         """
-        return 0
-        # return obj.trackers.filter(is_active=True).count()
+        return getattr(obj, 'trackers').filter(active=True).count()
     
     def validate_year(self, value: int) -> int:
         """
