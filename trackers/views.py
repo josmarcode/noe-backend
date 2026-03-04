@@ -20,7 +20,7 @@ class TrackerViewSet(viewsets.ModelViewSet):
     serializer_class = TrackerSerializer
 
     filter_backends  = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['vehicle', 'type', 'active']
+    filterset_fields = ['vehicle', 'type', 'is_active']
     search_fields    = ['name', 'type']
     ordering_fields  = ['created_at', 'next_due_km', 'last_service_km']
     ordering         = ['-created_at']
@@ -37,7 +37,7 @@ class TrackerViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(vehicle__user=self.request.user)
 
         if self.action == 'list':
-            queryset = queryset.filter(active=True)
+            queryset = queryset.filter(is_active=True)
 
         return queryset
 

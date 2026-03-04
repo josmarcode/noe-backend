@@ -22,7 +22,7 @@ class Tracker(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     
     def __str__(self):
         return f"{self.name} ({self.type})"

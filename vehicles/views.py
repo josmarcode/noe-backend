@@ -18,7 +18,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
     
     # Filtering and searching
     filter_backends     = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields    = ['brand', 'year', 'active', 'user']
+    filterset_fields    = ['brand', 'year', 'is_active', 'user']
     search_fields       = ['brand', 'model', 'name']
     ordering_fields     = ['created_at', 'year', 'kilometers']
     ordering            = ['-created_at']
@@ -40,7 +40,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
             
         # Only return active vehicles by default
         if self.action == 'list':
-            queryset = queryset.filter(active=True)
+            queryset = queryset.filter(is_active=True)
             
         return queryset
     
@@ -60,6 +60,10 @@ class VehicleViewSet(viewsets.ModelViewSet):
         Args:
             serializer (VehicleSerializer): The serializer instance with validated data.
         """
+        
+        # Debug logging the user and validated data
+        print(f"Creating vehicle for user: {self.request.user}")
+        print(f"Validated data: {serializer.validated_data}")
         
         serializer.save(user=self.request.user)
         

@@ -25,7 +25,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
     serializer_class = RegisterSerializer
 
     filter_backends  = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['tracker', 'tracker__vehicle', 'active']
+    filterset_fields = ['tracker', 'tracker__vehicle', 'is_active']
     search_fields    = ['note', 'tracker__name', 'tracker__type']
     ordering_fields  = ['tracker_at', 'kilometers', 'amount', 'created_at']
     ordering         = ['-tracker_at']
@@ -46,7 +46,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(tracker__vehicle__user=self.request.user)
 
         if self.action == 'list':
-            queryset = queryset.filter(active=True)
+            queryset = queryset.filter(is_active=True)
 
         return queryset
 
@@ -80,7 +80,7 @@ class RegisterViewSet(viewsets.ModelViewSet):
         # Use the most recent active register to determine the latest service state
         latest = (
             Register.objects
-            .filter(tracker=tracker, active=True)
+            .filter(tracker=tracker, is_active=True)
             .order_by('-kilometers')
             .first()
         )

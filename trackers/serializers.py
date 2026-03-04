@@ -26,7 +26,7 @@ class TrackerSerializer(serializers.ModelSerializer):
             'last_service_at',
             'next_due_km',
             'next_due_at',
-            'active',
+            'is_active',
             'created_at',
             'updated_at',
             'is_due',
@@ -47,7 +47,7 @@ class TrackerSerializer(serializers.ModelSerializer):
         """
         Returns the total number of active service registers for this tracker.
         """
-        return obj.registers.filter(active=True).count()
+        return obj.registers.filter(is_active=True).count()
 
     def validate(self, attrs):
         """
@@ -72,7 +72,7 @@ class TrackerListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tracker
-        fields = ['id', 'vehicle', 'type', 'name', 'icon', 'unit', 'next_due_km', 'active', 'is_due']
+        fields = ['id', 'vehicle', 'type', 'name', 'icon', 'unit', 'next_due_km', 'is_active', 'is_due']
 
     def get_is_due(self, obj: Tracker) -> bool:
         vehicle_km = obj.vehicle.kilometers

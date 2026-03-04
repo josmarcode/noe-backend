@@ -26,7 +26,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             'amount',
             'tracker_at',
             'note',
-            'active',
+            'is_active',
             'created_at',
             'updated_at',
         ]
@@ -68,5 +68,5 @@ class RegisterListSerializer(serializers.ModelSerializer):
             'kilometers',
             'amount',
             'tracker_at',
-            'active',
+            'is_active',
         ]

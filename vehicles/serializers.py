@@ -25,13 +25,13 @@ class VehicleSerializer(serializers.ModelSerializer):
             'owner_username',
             'trackers_count',
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'user', 'created_at', 'updated_at']
     
     def get_trackers_count(self, obj: Vehicle) -> int:
         """
         Get the count of active trackers associated with the vehicle.
         """
-        return getattr(obj, 'trackers').filter(active=True).count()
+        return getattr(obj, 'trackers').filter(is_active=True).count()
     
     def validate_year(self, value: int) -> int:
         """
